@@ -31,6 +31,8 @@ set tabstop=4
 set expandtab
 set shiftwidth=4 
 
+" Set leader key
+let mapleader="\<SPACE>"
 
 let g:netrw_keepdir = 0
 let g:netrw_winsize = 20
@@ -51,8 +53,15 @@ nmap <A-t> :sp term://zsh<CR>i
 nmap <A-s> :w<CR>
 " nmap <A-d> :bdelete<CR>:Dashboard<CR>
 nmap <F2> :SymbolsOutline<CR>
-nmap <A-]> :tabNext<CR>
+nmap <A-]> :tabnext<CR>
 nmap <A-[> :tabprevious<CR>
+
+" Telescope keybindings
+nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+nnoremap <leader>ft <cmd>lua require('telescope.builtin').treesitter()<cr>
 
 " Moving throught tabs with Ctrl+[h,j,k,l]
 function! WinMove(key)
@@ -73,13 +82,6 @@ nnoremap <silent> <C-j> :call WinMove('j')<CR>
 nnoremap <silent> <C-k> :call WinMove('k')<CR>
 nnoremap <silent> <C-l> :call WinMove('l')<CR>
 
-
-" Running inside vscode?
-if exists('g:vscode')
-    " VSCode extension
-else
-    " ordinary neovim
-endif
 
 lua << EOF
 require'nvim-treesitter.configs'.setup {
