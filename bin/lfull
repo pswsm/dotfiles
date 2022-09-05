@@ -1,0 +1,4 @@
+# !/bin/sh
+for dir in $(ls -pR); do
+    echo "$(pwd)/$dir";
+done
