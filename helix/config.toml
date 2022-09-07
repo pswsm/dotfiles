@@ -1,0 +1,13 @@
+[editor]
+line-number = "relative"
+cursorline = true
+mouse = false
+
+[editor.cursor-shape]
+insert = "underline"
+normal = "block"
+
+[editor.statusline]
+left = ["mode", "file-type"]
+center = ["file-name"]
+right = ["diagnostics", "file-encoding", "position", "file-encoding", "selections"]
