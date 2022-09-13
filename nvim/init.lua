@@ -4,7 +4,7 @@ local t = vim.opt
 local a = vim.api
 
 -- Source Plugins
-require('p_plug')
+require('plug')
 
 -- Ale Completion
 g.ale_completion_enabled = true
@@ -28,6 +28,9 @@ t.relativenumber = true
 -- Visual bell
 t.visualbell = true
 
+-- Color mode
+t.termguicolors = true
+
 -- NetRW Config
 g.netrw_keepdir = 0
 g.netrw_winsize = 20
@@ -48,16 +51,8 @@ g.mapleader = ' '
 -- Key [Re]maps
 map('t', '<Esc>', '<C-\\><C-n>')
 map('n', '<A-e>', ':Lexplore<CR>')
-map('n', '<A-t>', ':sp term://zsh<CR>i')
-map('n', '<A-[>', ':tabprevious<CR>')
-map('n', '<A-]>', ':tabnext<CR>')
+map('n', '<leader>z', ':sp term://zsh<CR>i')
 
--- Telescope Keybinds
-map('n', '<leader>ff', '<cmd>lua require("telescope.builtin").find_files()<cr>')
-map('n', '<leader>fg', '<cmd>lua require("telescope.builtin").live_grep()<cr>')
-map('n', '<leader>fb', '<cmd>lua require("telescope.builtin").buffers()<cr>')
-map('n', '<leader>fh', '<cmd>lua require("telescope.builtin").help_tags()<cr>')
-map('n', '<leader>ft', '<cmd>lua require("telescope.builtin").treesitter()<cr>')
 
 require'nvim-treesitter.configs'.setup {
   -- One of "all", "maintained" (parsers with maintainers), or a list of languages
@@ -83,7 +78,6 @@ require'nvim-treesitter.configs'.setup {
 }
 
 require('fidget').setup {}
-vim.opt.termguicolors = true
 require("bufferline").setup{}
 
 require("tokyonight").setup({
@@ -110,15 +104,39 @@ require("tokyonight").setup({
   lualine_bold = false, -- When `true`, section headers in the lualine theme will be bold
 
   --- You can override specific color groups to use other groups or a hex color
-  --- fucntion will be called with a ColorScheme table
+  --- function will be called with a ColorScheme table
   ---@param colors ColorScheme
   on_colors = function(colors) end,
 
   --- You can override specific highlights to use other groups or a hex color
-  --- fucntion will be called with a Highlights and ColorScheme table
+  --- function will be called with a Highlights and ColorScheme table
   ---@param highlights Highlights
   ---@param colors ColorScheme
   on_highlights = function(highlights, colors) end,
 })
 
+require("which-key").setup {}
+
+---------------------------------
+-- WhichKey keybinds setup
+-- wk.register({key1 = {name, more_keys = {cmd, help}}}, predix_key)
+local wk = require("which-key")
+wk.register({
+    t = {
+        name = "telescope",
+        f = {"<cmd>lua require('telescope.builtin').find_files()<cr>", "find files"},
+        g = {"<cmd>lua require('telescope.builtin').live_grep()<cr>", "grep"},
+        b = {"<cmd>lua require('telescope.builtin').buffers()<cr>", "buffer list"},
+        h = {"<cmd>lua require('telescope.builtin').help_tags()<cr>", "help tags"},
+        t = {"<cmd>lua require('telescope.builtin').treesitter()<cr>", "treesiter"}
+    },
+    b = {
+        name = "buffer",
+        c = {"<cmd>bdelete<cr>", "delete buffer"},
+        p = {"<cmd>bprevious<cr>", "previous buffer"},
+        n = {"<cmd>bnext<cr>", "next buffer"}
+    }
+}, { prefix = "<leader>" })
+
+-- Set theme
 vim.cmd[[colorscheme tokyonight]]

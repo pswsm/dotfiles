@@ -17,4 +17,5 @@ Plug('nvim-telescope/telescope-fzf-native.nvim', {['do'] = 'cmake -S. -Bbuild -D
 Plug('kyazdani42/nvim-web-devicons')
 Plug('akinsho/bufferline.nvim', {['tag'] = 'v2.*' })
 Plug('folke/tokyonight.nvim', {['branch'] = 'main' })
+Plug('folke/which-key.nvim')
 vim.call('plug#end')
