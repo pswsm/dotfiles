@@ -3,9 +3,6 @@ local o = vim.o
 local t = vim.opt
 local a = vim.api
 
--- Source Plugins
-require('plug')
-
 -- Ale Completion
 g.ale_completion_enabled = true
 
@@ -53,71 +50,71 @@ map('t', '<Esc>', '<C-\\><C-n>')
 map('n', '<A-e>', ':Lexplore<CR>')
 map('n', '<leader>z', ':sp term://zsh<CR>i')
 
+------------------------------------
+-- Source Plugins
+require('plug')
+------------------------------------
+-- nvim-cmp config
+local has_words_before = function()
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
 
-require'nvim-treesitter.configs'.setup {
-  -- One of "all", "maintained" (parsers with maintainers), or a list of languages
-  ensure_installed = {
-    "bash",
-    "c",
-    "cpp",
-    "css",
-    "html",
-    "javascript",
-    "typescript",
-    "python",
-    "rust",
-  },
-
-  -- Install languages synchronously (only applied to `ensure_installed`)
-  sync_install = false,
-
-  highlight = {
-    enable = true,
-    additional_vim_regex_highlighting = false,
-  },
-}
-
-require('fidget').setup {}
-require("bufferline").setup{}
-
-require("tokyonight").setup({
-  -- your configuration comes here
-  -- or leave it empty to use the default settings
-  style = "night", -- The theme comes in three styles, `storm`, a darker variant `night` and `day`
-  transparent = false, -- Enable this to disable setting the background color
-  terminal_colors = true, -- Configure the colors used when opening a `:terminal` in Neovim
-  styles = {
-    -- Style to be applied to different syntax groups
-    -- Value is any valid attr-list value `:help attr-list`
-    comments = "italic",
-    keywords = "italic",
-    functions = "NONE",
-    variables = "NONE",
-    -- Background styles. Can be "dark", "transparent" or "normal"
-    sidebars = "dark", -- style for sidebars, see below
-    floats = "dark", -- style for floating windows
-  },
-  sidebars = { "qf", "help" }, -- Set a darker background on sidebar-like windows. For example: `["qf", "vista_kind", "terminal", "packer"]`
-  day_brightness = 0.3, -- Adjusts the brightness of the colors of the **Day** style. Number between 0 and 1, from dull to vibrant colors
-  hide_inactive_statusline = false, -- Enabling this option, will hide inactive statuslines and replace them with a thin border instead. Should work with the standard **StatusLine** and **LuaLine**.
-  dim_inactive = false, -- dims inactive windows
-  lualine_bold = false, -- When `true`, section headers in the lualine theme will be bold
-
-  --- You can override specific color groups to use other groups or a hex color
-  --- function will be called with a ColorScheme table
-  ---@param colors ColorScheme
-  on_colors = function(colors) end,
-
-  --- You can override specific highlights to use other groups or a hex color
-  --- function will be called with a Highlights and ColorScheme table
-  ---@param highlights Highlights
-  ---@param colors ColorScheme
-  on_highlights = function(highlights, colors) end,
+local cmp = require'cmp'
+cmp.setup({
+    snippet = { expand = function(args) require'luasnip'.lsp_expand(args.body) end },
+    window = {
+      -- completion = cmp.config.window.bordered(),
+      -- documentation = cmp.config.window.bordered(),
+    },
+    mapping = {
+        ['<C-p>'] = cmp.mapping.select_prev_item(),
+        ['<C-n>'] = cmp.mapping.select_next_item(),
+        ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+        ['<C-f>'] = cmp.mapping.scroll_docs(4),
+        ['<C-Space>'] = cmp.mapping.complete(),
+        ['<C-e>'] = cmp.mapping.close(),
+        ['<CR>'] = cmp.mapping.confirm({
+            behavior = cmp.ConfirmBehavior.Insert,
+            select = true
+        }),
+        ["<Tab>"] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            cmp.select_next_item()
+          elseif luasnip.expand_or_jumpable() then
+            luasnip.expand_or_jump()
+          elseif has_words_before() then
+            cmp.complete()
+          else
+            fallback()
+          end
+        end, { "i", "s" }
+        ),
+        ["<S-Tab>"] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            cmp.select_prev_item()
+          elseif luasnip.jumpable(-1) then
+            luasnip.jump(-1)
+          else
+            fallback()
+          end
+        end, { "i", "s" }
+        ),
+    },
+    sources = cmp.config.sources({
+        { name = 'nvim_lsp' },
+        { name = 'luasnip' },
+    }, { { name = 'buffer' } }
+    )
 })
 
-require("which-key").setup {}
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+require'lspconfig'.pyright.setup { capabilities = capabilities }
+require'lspconfig'.rust_analyzer.setup { capabilities = capabilities }
+require'lspconfig'.eslint.setup { capabilities = capabilities }
+require'lspconfig'.intelephense.setup { capabilities = capabilities }
 
----------------------------------
+
 -- WhichKey keybinds setup
 -- wk.register({key1 = {name, more_keys = {cmd, help}}}, predix_key)
 local wk = require("which-key")
@@ -140,3 +137,4 @@ wk.register({
 
 -- Set theme
 vim.cmd[[colorscheme tokyonight]]
+
