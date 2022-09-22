@@ -12,7 +12,7 @@ t.encoding = 'utf-8'
 -- Spaces and tabs
 t.smarttab = true
 t.tabstop = 4
-t.expandtab = true
+t.expandtab = false
 t.shiftwidth = 4
 
 -- Highlight current line
@@ -60,6 +60,7 @@ local has_words_before = function()
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
+local luasnip = require'luasnip'
 local cmp = require'cmp'
 cmp.setup({
     snippet = { expand = function(args) require'luasnip'.lsp_expand(args.body) end },
@@ -113,6 +114,7 @@ require'lspconfig'.pyright.setup { capabilities = capabilities }
 require'lspconfig'.rust_analyzer.setup { capabilities = capabilities }
 require'lspconfig'.eslint.setup { capabilities = capabilities }
 require'lspconfig'.intelephense.setup { capabilities = capabilities }
+require'lspconfig'.phpactor.setup { capabilities = capabilities }
 
 
 -- WhichKey keybinds setup

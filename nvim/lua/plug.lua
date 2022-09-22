@@ -67,7 +67,10 @@ return require('packer').startup(function()
     use 'mattn/emmet-vim'
     use {'akinsho/bufferline.nvim', tag = 'v2.*', requires = 'kyazdani42/nvim-web-devicons'}
     use 'machakann/vim-sandwich'
-
+	use {
+		"windwp/nvim-autopairs",
+		config = function() require("nvim-autopairs").setup {} end
+	}
 end)
 
 -- Plug 'neovim/nvim-lspconfig'
