@@ -5,6 +5,7 @@ return require('packer').startup(function()
         'neovim/nvim-lspconfig',
         config = function()
             require'lspconfig'.pyright.setup{}
+            require'lspconfig'.pylsp.setup{}
             require'lspconfig'.rust_analyzer.setup{}
             require'lspconfig'.intelephense.setup{}
             require'lspconfig'.eslint.setup{}
@@ -14,7 +15,7 @@ return require('packer').startup(function()
     use {
         'folke/tokyonight.nvim',
         config = function() require'tokyonight'.setup {
-            style = 'day'
+            style = 'night'
         } end
     }
     use {
@@ -35,7 +36,6 @@ return require('packer').startup(function()
             ensure_installed = {
                 "python",
                 "rust",
-				"php",
                 "cpp",
                 "javascript",
                 "typescript",
@@ -65,12 +65,16 @@ return require('packer').startup(function()
     }
 
     use 'mattn/emmet-vim'
-    use {'akinsho/bufferline.nvim', tag = 'v2.*', requires = 'kyazdani42/nvim-web-devicons'}
-    use 'machakann/vim-sandwich'
-	use {
-		"windwp/nvim-autopairs",
-		config = function() require("nvim-autopairs").setup {} end
+    use {
+		'akinsho/bufferline.nvim', tag = 'v2.*',
+		requires = 'kyazdani42/nvim-web-devicons',
+		config = function () require'bufferline'.setup{} end
 	}
+    use 'machakann/vim-sandwich'
+    use 'rafamadriz/friendly-snippets'
+    use 'jiangmiao/auto-pairs'
+    use { 'saadparwaiz1/cmp_luasnip' }
+
 end)
 
 -- Plug 'neovim/nvim-lspconfig'
