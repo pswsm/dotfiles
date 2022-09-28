@@ -3,14 +3,11 @@ local o = vim.o
 local t = vim.opt
 local a = vim.api
 
--- Ale Completion
-g.ale_completion_enabled = true
-
 -- Encoding
 t.encoding = 'utf-8'
 
 -- Spaces and tabs
-t.smarttab = true
+t.smarttab = false
 t.tabstop = 4
 t.expandtab = false
 t.shiftwidth = 4
@@ -63,7 +60,7 @@ end
 local luasnip = require'luasnip'
 local cmp = require'cmp'
 cmp.setup({
-    snippet = { expand = function(args) require'luasnip'.lsp_expand(args.body) end },
+    snippet = { expand = function(args) luasnip.lsp_expand(args.body) end },
     window = {
       -- completion = cmp.config.window.bordered(),
       -- documentation = cmp.config.window.bordered(),
@@ -114,7 +111,6 @@ require'lspconfig'.pyright.setup { capabilities = capabilities }
 require'lspconfig'.rust_analyzer.setup { capabilities = capabilities }
 require'lspconfig'.eslint.setup { capabilities = capabilities }
 require'lspconfig'.intelephense.setup { capabilities = capabilities }
-require'lspconfig'.phpactor.setup { capabilities = capabilities }
 
 
 -- WhichKey keybinds setup

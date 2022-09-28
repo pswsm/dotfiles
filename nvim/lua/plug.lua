@@ -14,14 +14,13 @@ return require('packer').startup(function()
     use {
         'folke/tokyonight.nvim',
         config = function() require'tokyonight'.setup {
-            style = 'night'
+            style = 'day'
         } end
     }
     use {
       'nvim-lualine/lualine.nvim',
       requires = { 'kyazdani42/nvim-web-devicons', opt = true }
     }
-    use 'b3nj5m1n/kommentary'
     use {"L3MON4D3/LuaSnip", tag = "v1.*"}
     use 'hrsh7th/cmp-nvim-lsp'
     use 'hrsh7th/cmp-buffer'
@@ -36,6 +35,7 @@ return require('packer').startup(function()
             ensure_installed = {
                 "python",
                 "rust",
+				"php",
                 "cpp",
                 "javascript",
                 "typescript",
