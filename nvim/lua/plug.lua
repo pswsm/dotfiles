@@ -1,16 +1,6 @@
 return require('packer').startup(function()
   -- Packer can manage itself
     use 'wbthomason/packer.nvim'
-    use {
-        'neovim/nvim-lspconfig',
-        config = function()
-            require'lspconfig'.pyright.setup{}
-            require'lspconfig'.pylsp.setup{}
-            require'lspconfig'.rust_analyzer.setup{}
-            require'lspconfig'.intelephense.setup{}
-            require'lspconfig'.eslint.setup{}
-        end
-    }
     use "lukas-reineke/indent-blankline.nvim"
     use {
         'folke/tokyonight.nvim',
@@ -74,7 +64,11 @@ return require('packer').startup(function()
     use 'rafamadriz/friendly-snippets'
     use 'jiangmiao/auto-pairs'
     use { 'saadparwaiz1/cmp_luasnip' }
-
+	use {
+		"williamboman/mason.nvim",
+		"williamboman/mason-lspconfig.nvim",
+		"neovim/nvim-lspconfig",
+	}
 end)
 
 -- Plug 'neovim/nvim-lspconfig'

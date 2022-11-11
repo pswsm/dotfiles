@@ -50,6 +50,7 @@ map('n', '<leader>z', ':sp term://zsh<CR>i')
 ------------------------------------
 -- Source Plugins
 require('plug')
+
 ------------------------------------
 -- nvim-cmp config
 local has_words_before = function()
@@ -109,14 +110,18 @@ cmp.setup({
 })
 })
 
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+-----------------------------------
+-- mason.nvim stuff
+require("mason").setup()
+require("mason-lspconfig").setup()
+
+local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 require'lspconfig'.pyright.setup { capabilities = capabilities }
-require'lspconfig'.pylsp.setup { capabilities = capabilities }
 require'lspconfig'.rust_analyzer.setup { capabilities = capabilities }
 require'lspconfig'.eslint.setup { capabilities = capabilities }
 require'lspconfig'.intelephense.setup { capabilities = capabilities }
 
-
+-----------------------------------
 -- WhichKey keybinds setup
 -- wk.register({key1 = {name, more_keys = {cmd, help}}}, predix_key)
 local wk = require("which-key")
