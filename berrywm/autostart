@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# Assign workspaces to monitors
+berryc save_monitor 0 1
+berryc save_monitor 1 0
+berryc save_monitor 2 1
+berryc save_monitor 3 0
+berryc save_monitor 4 1
+berryc save_monitor 5 0
+
+
+# Set decoration geometry
+berryc border_width       5
+berryc inner_border_width 3
+berryc title_height       15
+berryc top_gap            25
+
+# Set decoration colors
+berryc focus_color         000000
+berryc unfocus_color       565679
+berryc inner_focus_color   000000
+berryc inner_unfocus_color 565679
+berryc text_focus_color    ffffff
+berryc text_unfocus_color  eeeeee
+
+# Other options
+berryc smart_place "true"
+berryc draw_text   "true"
+berryc edge_lock   "true"
+berryc set_font    "Roboto Mono-11"
+
+# Set background
+feh --bg-fill $HOME/Pictures/wallpapers/ushio.png
+
+# start lemonbar
+$HOME/.local/bin/tinybar
+
+# clear dmenu cache
+rm $HOME/.cache/dmenu_run
