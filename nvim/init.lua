@@ -45,7 +45,6 @@ g.mapleader = ' '
 -- Key [Re]maps
 map('t', '<Esc>', '<C-\\><C-n>')
 map('n', '<A-e>', ':Lexplore<CR>')
-map('n', '<leader>z', ':sp term://zsh<CR>i')
 
 ------------------------------------
 -- Source Plugins
@@ -115,7 +114,6 @@ cmp.setup({
 require("mason").setup()
 require("mason-lspconfig").setup()
 
-local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 require'lspconfig'.pyright.setup { capabilities = capabilities }
 require'lspconfig'.rust_analyzer.setup { capabilities = capabilities }
 require'lspconfig'.eslint.setup { capabilities = capabilities }
@@ -139,7 +137,16 @@ wk.register({
         c = {"<cmd>bdelete<cr>", "delete buffer"},
         p = {"<cmd>bprevious<cr>", "previous buffer"},
         n = {"<cmd>bnext<cr>", "next buffer"}
-    }
+	},
+	m = {
+		name = "mason",
+		s = {"<cmd>Mason<cr>", "Mason Installer"}
+	},
+	l = {
+		name = "lspconfig",
+		i = {"<cmd>LspInfo<cr>", "LSP Info"}
+	},
+	z = {"<cmd>sp term://zsh<cr>i", "Open ZSH Terminal"}
 }, { prefix = "<leader>" })
 
 -- Set theme
