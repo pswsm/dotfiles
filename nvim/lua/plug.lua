@@ -63,11 +63,12 @@ return require('packer').startup(function()
     use 'machakann/vim-sandwich'
     use 'rafamadriz/friendly-snippets'
     use 'jiangmiao/auto-pairs'
-    use { 'saadparwaiz1/cmp_luasnip' }
+    use 'saadparwaiz1/cmp_luasnip'
 	use {
 		"williamboman/mason.nvim",
 		"williamboman/mason-lspconfig.nvim",
 		"neovim/nvim-lspconfig",
+		'mhartington/formatter.nvim'
 	}
 end)
 

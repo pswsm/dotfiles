@@ -114,10 +114,22 @@ cmp.setup({
 require("mason").setup()
 require("mason-lspconfig").setup()
 
-require'lspconfig'.pyright.setup { capabilities = capabilities }
-require'lspconfig'.rust_analyzer.setup { capabilities = capabilities }
-require'lspconfig'.eslint.setup { capabilities = capabilities }
-require'lspconfig'.intelephense.setup { capabilities = capabilities }
+require('lspconfig').pyright.setup { capabilities = capabilities }
+require('lspconfig').rust_analyzer.setup { capabilities = capabilities }
+-- require('lspconfig').rustfmt.setup { capabilities = capabilities }
+-- require('lspconfig').eslint.setup { capabilities = capabilities }
+require('lspconfig').tsserver.setup { capabilities = capabilities }
+-- require('lspconfig').xojs.setup { capabilities = capabilities }
+require('lspconfig').angularls.setup { capabilities = capabilities }
+require('lspconfig').intelephense.setup { capabilities = capabilities }
+
+require("formatter").setup {
+	filetype = {
+		rust = {
+			require("formatter.filetypes.rust").rustfmt
+		}
+	}
+}
 
 -----------------------------------
 -- WhichKey keybinds setup
@@ -146,7 +158,12 @@ wk.register({
 		name = "lspconfig",
 		i = {"<cmd>LspInfo<cr>", "LSP Info"}
 	},
-	z = {"<cmd>sp term://zsh<cr>i", "Open ZSH Terminal"}
+	z = {"<cmd>sp term://zsh<cr>i", "Open ZSH Terminal"},
+	f = {
+		name = "formatting",
+		f = {"<cmd>Format<cr>", "Format file"},
+		w = {"<cmd>FormatWrite<cr>", "Format and save file"}
+	}
 }, { prefix = "<leader>" })
 
 -- Set theme
