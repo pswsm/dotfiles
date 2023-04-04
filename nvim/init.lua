@@ -116,12 +116,9 @@ require("mason-lspconfig").setup()
 
 require('lspconfig').pyright.setup { capabilities = capabilities }
 require('lspconfig').rust_analyzer.setup { capabilities = capabilities }
--- require('lspconfig').rustfmt.setup { capabilities = capabilities }
--- require('lspconfig').eslint.setup { capabilities = capabilities }
 require('lspconfig').tsserver.setup { capabilities = capabilities }
--- require('lspconfig').xojs.setup { capabilities = capabilities }
 require('lspconfig').angularls.setup { capabilities = capabilities }
-require('lspconfig').intelephense.setup { capabilities = capabilities }
+require('lspconfig').svelte.setup { capabilities = capabilities }
 
 require("formatter").setup {
 	filetype = {
@@ -167,5 +164,5 @@ wk.register({
 }, { prefix = "<leader>" })
 
 -- Set theme
-vim.cmd[[colorscheme tokyonight]]
+vim.cmd[[colorscheme slate]]
 

@@ -28,13 +28,16 @@ return require('packer').startup(function()
                 "rust",
                 "cpp",
                 "javascript",
+				"svelte",
                 "typescript",
                 "css",
                 "html",
-                "bash",
-                "c",
+                "bash"
             },
             sync_install = false,
+			highlight = {
+				enable = true
+			}
         }
         end
     }
