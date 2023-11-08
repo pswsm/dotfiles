@@ -1,7 +1,9 @@
 [editor]
 line-number = "relative"
 cursorline = true
+cursorcolumn = true
 mouse = false
+bufferline = "always"
 
 [editor.cursor-shape]
 insert = "underline"
@@ -9,5 +11,24 @@ normal = "block"
 
 [editor.statusline]
 left = ["mode", "file-type"]
-center = ["file-name"]
-right = ["diagnostics", "file-encoding", "position", "file-encoding", "selections"]
+center = ["file-modification-indicator", "file-name", "separator", "version-control"]
+right = ["spinner", "diagnostics", "file-encoding", "position", "file-encoding", "selections"]
+
+[editor.auto-pairs]
+'(' = ')'
+'{' = '}'
+'[' = ']'
+'"' = '"'
+"'" = "'"
+'`' = '`'
+'<' = '>'
+'“' = '”'
+'«' = '»'
+
+[editor.whitespace]
+render = "all"
+
+[editor.soft-wrap]
+enable = true
+max-wrap = 30
+max-indent-retain = 30
