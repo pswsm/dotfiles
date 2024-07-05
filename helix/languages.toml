@@ -1,56 +1,44 @@
 [language-server.deno-ts]
 command = "deno"
 args = ["lsp"]
-config = { enable = true, lint = true, unstable = true }
+config = { enable = true }
+
+[language-server.nimlangserver]
+command = "nimlangserver"
 
 [language-server.emmet-lsp]
 command = "emmet-language-server"
 args = ["--stdio"]
 
-[[language]]
-name = "javascript"
-scope = "source.js"
-injection-regex = "^(js|javascript)$"
-file-types = ["js", "jsx", "mjs"]
-shebangs = ["deno", "node"]
-roots = ["deno.json", "package.json", "tsconfig.json"]
-comment-token = "//"
-language-servers = ["deno-ts", "typescript-language-server"]
-language-id = "javascript"
-
-[[language]]
-name = "jsx"
-scope = "source.jsx"
-injection-regex = "jsx"
-file-types = ["jsx"]
-shebangs = ["deno", "node"]
-roots = ["deno.json", "package.json", "tsconfig.json"]
-comment-token = "//"
-language-servers = ["deno-ts", "typescript-language-server"]
-grammar = "javascript"
-language-id = "javascriptreact"
-
-[[language]]
-name = "typescript"
-scope = "source.ts"
-injection-regex = "^(ts|typescript)$"
-file-types = ["ts"]
-shebangs = ["deno", "node"]
-roots = ["deno.json", "package.json", "tsconfig.json"]
-language-servers = ["deno-ts", "typescript-language-server"]
-language-id = "typescript"
-
-[[language]]
-name = "tsx"
-scope = "source.tsx"
-injection-regex = "^(tsx)$" # |typescript
-file-types = ["tsx"]
-shebangs = ["deno", "node"]
-roots = ["deno.json", "package.json", "tsconfig.json"]
-language-servers = ["deno-ts", "typescript-language-server"]
-language-id = "typescriptreact"
+[language-server.pylsp.config.pylsp]
+plugins.black.enabled = true
+plugins.ruff.enabled = true
+plugins.pyls_mypy.enabled = true
+plugins.pyls_mypy.live_mode = true
 
 [[language]]
 name = "html"
 roots = [".git"]
 language-servers = ["emmet-lsp"]
+
+[[language]]
+name = "javascript"
+indent = { tab-width = 4, unit = "\t" }
+
+[[language]]
+name = "svelte"
+indent = { tab-width = 4, unit = "\t" }
+
+[[language]]
+name = "typescript"
+indent = { tab-width = 4, unit = "\t" }
+
+[[language]]
+name = "nim"
+language-servers = ["nimlangserver"]
+formatter = { command = "nimpretty", args = ["${INPUT}"] }
+
+[[language]]
+name = "python"
+roots = ["pyproject.toml"]
+language-servers = ["pylsp"]
