@@ -4,11 +4,14 @@
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
+# Path to rimworld
+export RMM_PATH="$HOME/Games/RimWorld/game/Mods"
+
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="agnoster"
+ZSH_THEME="candy"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -25,7 +28,7 @@ ZSH_THEME="agnoster"
 
 # Uncomment one of the following lines to change the auto-update behavior
 # zstyle ':omz:update' mode disabled  # disable automatic updates
-# zstyle ':omz:update' mode auto      # update automatically without asking
+zstyle ':omz:update' mode auto      # update automatically without asking
 # zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 
 # Uncomment the following line to change how often to auto-update (in days).
@@ -41,7 +44,7 @@ ZSH_THEME="agnoster"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # You can also set it to another string to have that shown instead of the default red dots.
@@ -70,7 +73,7 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=()
+plugins=( git )
 
 source $ZSH/oh-my-zsh.sh
 
@@ -79,7 +82,8 @@ source $ZSH/oh-my-zsh.sh
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # export TERM="kitty"
-export path=('/usr/local/sbin' '/usr/local/bin' '/usr/bin' "$HOME/.local/bin" "$HOME/.cargo/bin" "$HOME/.local/share/pnpm" "$HOME/.config/composer/vendor/bin")
+export PNPM_HOME="$HOME/.local/share/pnpm"
+export path=('/usr/local/sbin' '/usr/local/bin' '/usr/bin' "$HOME/.local/bin" "$HOME/.cargo/bin" "$HOME/.local/share/pnpm" "$HOME/.deno/bin/" "$HOME/.nimble/bin")
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -88,7 +92,7 @@ export path=('/usr/local/sbin' '/usr/local/bin' '/usr/bin' "$HOME/.local/bin" "$
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
 else
-  export EDITOR='nvim'
+  export EDITOR='hx'
 fi
 
 # Compilation flags
@@ -102,13 +106,12 @@ fi
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias ll="ls -lh --hyperlink=auto"
+alias ll="ls -lsh --hyperlink=auto"
+alias rg="rg --hyperlink-format=default"
+alias lla="ls -lash --hyperlink=auto"
 
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-# Load Angular CLI autocompletion.
-source <(ng completion script)
-
-# pnpm
-export PNPM_HOME="/home/pswsm/.local/share/pnpm"
-# export PATH="$PNPM_HOME:$PATH"
-# pnpm end
+eval "$(starship init zsh)"
