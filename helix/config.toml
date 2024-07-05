@@ -2,7 +2,7 @@
 line-number = "relative"
 cursorline = true
 cursorcolumn = true
-mouse = false
+mouse = true
 bufferline = "always"
 
 [editor.cursor-shape]
